@@ -34,7 +34,7 @@ class HexIntegerField(IntegerField):
 # Serializers
 class DeviceSerializerMixin(ModelSerializer):
 	class Meta:
-		fields = ("name", "registration_id", "device_id", "active", "date_created")
+		fields = ("name", "application_id", "registration_id", "device_id", "active", "date_created")
 		read_only_fields = ("date_created", )
 
 		# See https://github.com/tomchristie/django-rest-framework/issues/1101
