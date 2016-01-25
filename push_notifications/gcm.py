@@ -83,14 +83,14 @@ def _gcm_send_plain(registration_id, data, application_id, **kwargs):
 	# If first line starts with id, check second line:
 	# If second line starts with registration_id, gets its value and replace the registration tokens in your
 	# server database. Otherwise, get the value of Error
-	response = result.decode()
-	if response.startswith("id"):
-		lines = response.split("\n")
+
+	if result.startswith("id"):
+		lines = result.split("\n")
 		if len(lines) > 1 and lines[1].startswith("registration_id"):
 			new_id = lines[1].split("=")[-1]
 			_gcm_handle_canonical_id(new_id, registration_id)
 
-	elif response.startswith("Error="):
+	elif result.startswith("Error="):
 		if result in ("Error=NotRegistered", "Error=InvalidRegistration"):
 			# Deactivate the problematic device
 			device = GCMDevice.objects.filter(registration_id=values["registration_id"])
